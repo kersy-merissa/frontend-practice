@@ -1,0 +1,36 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Explorer - About</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Navigation Bar -->
+    <header class="bg-indigo-600 text-white shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">📚 Book Explorer</h1>
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="hover:underline">Home</a></li>
+                <li><a href="favorites.html" class="hover:underline">Favorites</a></li>
+                <li><a href="about.html" class="hover:underline font-semibold">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12 max-w-2xl text-center">
+        <h2 class="text-3xl font-extrabold mb-4">About Book Explorer</h2>
+        <p class="text-gray-600 leading-relaxed mb-6">
+            Book Explorer is an interactive web application built with HTML5, Tailwind CSS, and modular JavaScript (ES6). It connects directly to the Open Library API to let users search for books, view details, and save their favorite reads directly into browser storage using localStorage.
+        </p>
+        <a href="index.html" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+            Start Exploring Books
+        </a>
+    </main>
+
+</body>
+</html>

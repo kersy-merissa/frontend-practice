@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Explorer - Favorites</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Navigation Bar -->
+    <header class="bg-indigo-600 text-white shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">📚 Book Explorer</h1>
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="hover:underline">Home</a></li>
+                <li><a href="favorites.html" class="hover:underline font-semibold">Favorites</a></li>
+                <li><a href="about.html" class="hover:underline">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <h2 class="text-3xl font-extrabold mb-6 text-center">Your Favorite Books</h2>
+        
+        <div id="favoritesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Favorite books dynamically loaded here -->
+        </div>
+
+        <p id="noFavorites" class="hidden text-center text-gray-500 py-10">No favorite books saved yet. Go back to Home and add some!</p>
+    </main>
+
+    <!-- Script to render favorites -->
+    <script type="module">
+        import { getFavorites, removeFavorite } from './js/favorites.js';
+
+        const favoritesGrid = document.getElementById('favoritesGrid');
+        const noFavorites = document.getElementById('noFavorites');
+
+        function renderFavorites() {
+            const favorites = getFavorites();
+            favoritesGrid.innerHTML = '';
+
+            if (favorites.length === 0) {
+                noFavorites.classList.remove('hidden');
+                return;
+            }
+
+            noFavorites.classList.add('hidden');
+
+            favorites.forEach(book => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg shadow-md p-4 flex flex-col justify-between';
+
+                card.innerHTML = `
+                    <div>
+                        <img src="${book.cover_i}" alt="${book.title}" class="h-48 w-full object-cover rounded-md mb-4">
+                        <h3 class="font-bold text-lg mb-1 line-clamp-1">${book.title}</h3>
+                        <p class="text-sm text-gray-600 mb-4">By ${book.author_name}</p>
+                    </div>
+                    <button class="remove-btn bg-red-50 text-red-600 font-semibold py-2 px-4 rounded hover:bg-red-600 hover:text-white transition">
+                        🗑️ Remove
+                    </button>
+                `;
+
+                card.querySelector('.remove-btn').addEventListener('click', () => {
+                    removeFavorite(book.key);
+                    renderFavorites(); // Refresh list
+                });
+
+                favoritesGrid.appendChild(card);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderFavorites);
+    </script>
+</body>
+</html>
